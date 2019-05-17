@@ -17,4 +17,5 @@ def create():
     db_ctrl.create_PlayRecord()
     db_ctrl.create_HighestScore()
 ```
-首页为xxx/Game_2048/（xxx为服务器地址，如http://localhost:8080/）
+首页为xxx/Game_2048/
+xxx为服务器地址，如http://localhost:8080/
