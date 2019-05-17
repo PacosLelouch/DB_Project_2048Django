@@ -19,3 +19,5 @@ def create():
 ```
 首页为xxx/Game_2048/
 xxx为服务器地址，如http://localhost:8080/
+
+使用python manage.py runserver [url]运行服务器。
