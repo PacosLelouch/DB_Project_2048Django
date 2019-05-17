@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'Game_2048/style.css' %}" />
+    <!--<meta charset="UTF-8">-->
+    <title>2048 (VER.?): register</title>
+</head>
+<body>
+    <h1>Register</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <input type="text" class="textboxreg" name="username" placeholder="username(length from 5 to 20)" />
+        </p>
+        <p>
+            <input type="password" class="textboxreg" name="password" placeholder="password(length from 5 to 30)" />
+        </p>
+        <p>
+            <input type="email" class="textboxreg" name="email" placeholder="email(length not longer than 100)" />
+        </p>
+        <p>
+            <input type="submit" class="btn" value="Register" />
+        </p>
+
+    </form>
+    <a href="{% url 'Game_2048:index'%}"><input type="button" class="btn" value="Return" /></a>
+    {% if valid_register == False %}
+    <p><strong>Invalid information. Please register again.</strong></p>
+    {% endif %}
+</body>

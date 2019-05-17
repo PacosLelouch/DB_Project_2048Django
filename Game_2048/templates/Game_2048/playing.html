@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<head>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'Game_2048/style.css' %}" />
+    <!--<meta charset="UTF-8">-->
+    <title>2048 (VER.?): playing</title>
+    <script src="/static/js/jquery-1.12.4.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+</head>
+<body>
+    <h1>
+        {{ name }}:{{ size }}x{{ size }}<span id="game-over"></span>
+    </h1>
+    <p>
+        Score: <span id="score">{{ game.board.score }}</span>
+        <br />
+        Last Move: <span id="last-move">{{ direction }}</span>
+    </p>
+    <!-- <canvas id="game-board" width="{{ size }}00" height="{{ size }}00"></canvas> -->
+    <!-- <p id="test">
+        {{ game.to_json }}
+    </p> -->
+    <table id="game-board" class="gametable" border="1">
+        {% for b0 in game.board4print %}
+        <tr>
+            {% for b1 in b0 %}
+            <td width="60" height="60" align="center">
+                {% if b1 >= 2 %}
+                {{ b1 }}
+                {% else %}
+                &nbsp;
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <br />
+    <div id="game-ctrl">
+        <br />
+        <input type="button" id="btn-up" class="btndir" value="up" />
+        <br />
+        <input type="button" id="btn-left" class="btndir" value="left" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" id="btn-right" class="btndir" value="right" />
+        <br />
+        <input type="button" id="btn-down" class="btndir" value="down" />
+        <br />
+    </div>
+    <br />
+    <div id="submit-score" hidden="hidden">
+        <input type="button" id="btn-submit" class="btn" value="Submit" />
+        <!--
+        <form action="{% url 'Game_2048:submit_score' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="size" value="{{ size }}" />
+            <input type="hidden" name="name" value="{{ name }}" />
+            <input type="hidden" name="score" value="{{ game.board.score }}" />
+            <input width="100" height="100" type="submit" name="submit_score" value="Submit Score" />
+        </form>
+        -->
+    </div>
+    <br />
+    <a href="{% url 'Game_2048:index'%}"><input type="button" class="btn" value="Return" /></a>
+    <p><span id="submit-msg"></span></p>
+</body>
+<script>
+    var check_color = function () {
+        var bg_color_list = [
+            "#EEE4DA",//2
+            "#EDE0C8",//4
+            "#F2B179",//8
+            "#F59563",//16
+            "#F67C5F",//32
+            "#F65E3B",//64
+            "#EDCF72",//128
+            "#EDCC61",//256
+            "#EDC850",//512
+            "#E4B93C",//1024
+            "#EDC528",//2048
+            "#E6E014",//4096
+        ]
+        var text_color_list = [
+            "#938980",//2
+            "#938980",//4
+            "#F9F6F2",//8
+            "#F9F6F2",//16
+            "#F9F6F2",//32
+            "#F9F6F2",//64
+            "#F9F6F2",//128
+            "#F9F6F2",//256
+            "#F9F6F2",//512
+            "#F9F6F2",//1024
+            "#F9F6F2",//2048
+            "#F9F6F2",//4096
+        ]
+        $("#game-board tr td").each(function () {
+            if ($(this).text() == " ") {
+                $(this).css("background", "white");
+                $(this).css("color", "black");
+            }
+            else {
+                var index = Math.log2(parseInt($(this).text())) - 1;
+                if (index >= bg_color_list.length) {
+                    index = 0;
+                }
+                $(this).css("background", bg_color_list[index]);
+                $(this).css("color", text_color_list[index]);
+            }
+        });
+    }
+    $(document).ready(function () {
+        check_color();
+    })
+    $(function () {
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader('X-CSRFtoken', $.cookie('csrftoken'))
+            }
+        });
+
+        $(document).keyup(function () {
+            console.log("keyCode = " + event.keyCode);
+            switch (event.keyCode) {
+                case 65: //left
+                    button_click("left");
+                    break;
+                case 87: //up
+                    button_click("up");
+                    break;
+                case 68:
+                    button_click("right");
+                    break;
+                case 83:
+                    button_click("down");
+                    break;
+            }
+        });
+        function button_click(direction) {
+            $.ajax({
+                url: "{% url 'Game_2048:playing' %}",
+                type: "POST",
+                //contentType: 'application/json', 
+                //dataType: 'json',
+                async: false,
+                data: { 'size': parseInt('{{ size }}'), "direction": direction, 'error':0 },
+                dataFilter: function (data) {
+                    try {
+                        dataObj = JSON.parse(data);
+                        //$('#test').text('filter' + data);
+                        $('#last-move').text(dataObj['direction']);
+                        $('#score').text(dataObj['score']);
+                        if (dataObj['state'] == 2) {
+                            $('#game-over').text(',(game over)');
+                            $('#game-ctrl').hide();
+                            $('#submit-score').show();
+                        }
+                        for (var i = 0; i < dataObj['board'].length; i++) {
+                            for (var j = 0; j < dataObj['board'][i].length; j++) {
+                                var newPos = 'tr:eq(' + i + ') td:eq(' + j + ')';
+                                if (dataObj['board'][i][j] >= 2) {
+                                    $('#game-board ' + newPos).text(dataObj['board'][i][j]);
+                                }
+                                else {
+                                    $('#game-board ' + newPos).text(' ');
+                                }
+                            }
+                        }
+                        check_color();
+                    }
+                    catch (exception) {
+                        $('#game-board').text(exception);
+                    }
+                    return data
+                },
+            })
+        }
+        $('#btn-up').click(function () {
+            button_click("up");
+        })
+        $('#btn-down').click(function () {
+            button_click("down");
+        })
+        $('#btn-left').click(function () {
+            button_click("left");
+        })
+        $('#btn-right').click(function () {
+            button_click("right");
+        })
+        $('#btn-submit').click(function () {
+            $.ajax({
+                url: "{% url 'Game_2048:submit_score' %}",
+                type: "POST",
+                //contentType: 'application/json', 
+                //dataType: 'json',
+                async: true,
+                data: {
+                    'size': parseInt("{{size}}"),
+                    'score': parseInt($('#score').text()),
+                },
+                complete: function (data) {
+                    try {
+                        $('#submit-msg').text(data.responseText);
+                        $('#btn-submit').hide();
+                    }
+                    catch (exception) {
+                        $('#submit-msg').text(exception);
+                    }
+                },
+            })
+        })
+    })
+</script>

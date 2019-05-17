@@ -1,0 +1,232 @@
+body{
+    margin:auto;
+    text-align:center;
+}
+h1{
+    font-size:60px;
+}
+.selectlayout {
+    margin: auto;
+    text-align: center;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+    position: relative;
+}
+
+.select {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    /*appearance: none;*/
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-left: 20px;
+}
+
+.selectlayout:after {
+    margin: auto;
+    text-align: center;
+    content: "";
+    width: 14px;
+    height: 8px;
+    background: url(../img/xiala.png) no-repeat center;
+    position: absolute;
+    right: 14px;
+    top: 45%;
+    pointer-events: none;
+}
+ .subtitle {
+}
+.messagelayout {
+    background-color: aliceblue;
+    border-radius: 5px;
+    width: 800px;
+    align-self: center;
+    margin: auto;
+    font-size: 30px;
+}
+.scoreboardlayout {
+    background-color: aliceblue;
+    border-radius: 5px;
+    width: 800px;
+    align-self: center;
+    margin: auto;
+    font-size: 30px;
+}
+.personalinfolayout {
+    background-color: aliceblue;
+    border-radius: 5px;
+    width: 800px;
+    align-self: center;
+    margin: auto;
+    font-size: 30px;
+}
+.personalhighscorelayout {
+    background-color: beige;
+    border-radius: 5px;
+    width: 800px;
+    align-self: center;
+    margin: auto;
+    font-size: 30px;
+}
+.personalloginlayout {
+    background-color: aliceblue;
+    border-radius: 5px;
+    width: 800px;
+    align-self: center;
+    margin: auto;
+    font-size: 30px;
+}
+.personalplayrecordlayout {
+    background-color: beige;
+    border-radius: 5px;
+    width: 800px;
+    align-self: center;
+    margin: auto;
+    font-size: 30px;
+}
+
+.contentlayout {
+    background-color: beige;
+    border-radius: 5px;
+    width: 800px;
+    margin: auto;
+    text-align: center;
+    font-size: 30px;
+}
+.contentbox {
+    margin:auto;
+    min-width: 740px;
+    max-width: 740px;
+    min-height: 320px;
+    max-height: 320px;
+    border-radius: 5px;
+}
+.name {
+    margin-left: 20px;
+    text-align: justify;
+    text-justify: auto;
+    stroke-width: 3px;
+    font-size: 40px;
+}
+
+.table {
+    max-width: 780px;
+    min-width: 780px;
+    border: 0px solid gray;
+    border-radius: 5px;
+    align-self: center;
+    margin: auto;
+}
+.gametable {
+    border: 2px solid gray;
+    border-radius: 5px;
+    align-self: center;
+    margin: auto;
+}
+td {
+    border-radius: 5px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-bottom: 2px solid;
+    border-color:gray;
+}
+.timecolumn{
+    min-width:400px;
+}
+.descriptioncenter {
+    color: gray;
+    font-size: 20px;
+}
+.description {
+    margin-left: 20px;
+    text-align: justify;
+    text-justify: auto;
+    color: gray;
+    font-size: 20px;
+}
+.textbox{
+    width:200px;
+    height:30px;
+    border-radius:5px;
+    font-size:20px;
+}
+.textboxreg {
+    width: 400px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+.contentdisplay {
+    border-bottom: 20px solid;
+    border-bottom-style: groove;
+}
+pre {
+    white-space: pre-wrap;
+}
+.btn {
+    font-size: 20px;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border-top: 0px solid;
+    border-bottom: 2px solid;
+    border-left: 0px solid;
+    border-right: 0px solid;
+    border-color: rgb(100, 200, 150);
+    background: -moz-linear-gradient(top, rgba(52, 248, 148, 255), rgba(195, 251, 229, 200));
+    background: -webkit-gradient(linear, bottom, from(rgba(52, 248, 148, 255)), to(rgba(195, 251, 229, 200)));
+    background: -webkit-linear-gradient(bottom, rgba(52, 248, 148, 255), rgba(195, 251, 229, 200));
+    background: -o-linear-gradient(top, rgba(52, 248, 148, 255), rgba(195, 251, 229, 200));
+    background: linear-gradient(to top, rgba(52, 248, 148, 255), rgba(195, 251, 229, 200));
+}
+    .btn:active{
+        border-radius: 5px;
+        border-top: 2px solid;
+        border-bottom: 0px solid;
+        border-left: 0px solid;
+        border-right: 0px solid;
+        border-color: rgb(100, 200, 150);
+        background: -moz-linear-gradient(top, rgba(13, 204, 88, 255), rgba(153, 224, 198, 200));
+        background: -webkit-gradient(linear, bottom, from(rgba(13, 204, 88, 255)), to(rgba(153, 224, 198, 200)));
+        background: -webkit-linear-gradient(bottom, rgba(13, 204, 88, 255), rgba(153, 224, 198, 200));
+        background: -o-linear-gradient(top, rgba(13, 204, 88, 255), rgba(153, 224, 198, 200));
+        background: linear-gradient(to top, rgba(13, 204, 88, 255), rgba(153, 224, 198, 200));
+    }
+.btndir {
+    font-size: 20px;
+    height: 60px;
+    width: 60px;
+    border-radius: 30px;
+    border-top: 0px inset;
+    border-bottom: 2px inset;
+    border-left: 0px inset;
+    border-right: 0px inset;
+    border-color: rgb(100, 200, 150);
+    background: -moz-linear-gradient(top, rgba(52, 248, 148, 255), rgba(195, 251, 229, 200));
+    background: -webkit-gradient(linear, bottom, from(rgba(52, 248, 148, 255)), to(rgba(195, 251, 229, 200)));
+    background: -webkit-linear-gradient(bottom, rgba(52, 248, 148, 255), rgba(195, 251, 229, 200));
+    background: -o-linear-gradient(top, rgba(52, 248, 148, 255), rgba(195, 251, 229, 200));
+    background: linear-gradient(to top, rgba(52, 248, 148, 255), rgba(195, 251, 229, 200));
+}
+
+    .btndir:active {
+        height: 60px;
+        width: 60px;
+        border-radius: 30px;
+        border-top: 2px inset;
+        border-bottom: 0px inset;
+        border-left: 0px inset;
+        border-right: 0px inset;
+        border-color: rgb(100, 200, 150);
+        background: -moz-linear-gradient(top, rgba(13, 204, 88, 255), rgba(153, 224, 198, 200));
+        background: -webkit-gradient(linear, bottom, from(rgba(13, 204, 88, 255)), to(rgba(153, 224, 198, 200)));
+        background: -webkit-linear-gradient(bottom, rgba(13, 204, 88, 255), rgba(153, 224, 198, 200));
+        background: -o-linear-gradient(top, rgba(13, 204, 88, 255), rgba(153, 224, 198, 200));
+        background: linear-gradient(to top, rgba(13, 204, 88, 255), rgba(153, 224, 198, 200));
+    }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'Game_2048/style.css' %}" />
+    <!--<meta charset="UTF-8">-->
+    <title>2048 (VER.?): title</title>
+</head>
+<body>
+    <h1>2048</h1>
+    {% if is_login == True %}
+    <h2>Welcome, {{ username }}. </h2>
+    <h2><a href="{% url 'Game_2048:personal' %}">Check your personal information.</a></h2>
+    <a href="{% url 'Game_2048:logout'%}"><input type="button" class="btn" value="Logout" /></a>
+    <form action="{% url 'Game_2048:playing' %}" method="get">
+        <p>
+            <div class="descriptioncenter">Map Size:</div>
+            <div class="selectlayout">
+            <select id="rank" name="size" list="ranklist" class="select" value="3">
+                {% for rank in ranklist %}
+                <option value="{{ rank }}">{{ rank }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <!--input type="number" class="textbox" name="size" value="4" /-->
+        </p>
+        <input type="submit" class="btn" value="Play" />
+    </form>
+    {% else %}
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <input type="text" class="textbox" name="username" placeholder="username" />
+        </p>
+        <p>
+            <input type="password" class="textbox" name="password" placeholder="password" />
+        </p>
+
+        <!--
+            <input type="checkbox" name="box" value="1" /> DEBUG: 10s overtime
+        -->
+        <p>
+            <input type="submit" class="btn" value="Login" />
+        </p>
+        <!-- <input type="button" id="btu-1" value="Ajax-1" /> -->
+
+    </form>
+    {% endif %}
+    <p>
+    <a href="{% url 'Game_2048:register'%}"><input type="button" class="btn" value="Register" /></a>
+    </p>
+    <p>
+    <a href="{% url 'Game_2048:message_board'%}"><input type="button" class="btn" value="Board" /></a>
+    {% if valid == False %}
+    </p>
+    Invalid user or password.
+    {% endif %}
+</body>
+

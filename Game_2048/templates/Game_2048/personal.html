@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'Game_2048/style.css' %}" />
+    <!--<meta charset="UTF-8">-->
+    <title>2048 (VER.?): personal</title>
+    <script src="/static/js/jquery-1.12.4.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+</head>
+<body>
+    <br />
+    <a href="{% url 'Game_2048:index'%}"><input type="button" class="btn" value="Return" /></a>
+    <br />
+    <!--p>Here is <strong>{{ name }}</strong>'s information.</p-->
+    <h1>Your Information</h1>
+    <div class="personalinfolayout">
+        <table id="loginrcs" class="table">
+            {% for uid, name, email, regtime in info %}
+            <tr><td>uid</td><td align="left">{{ uid }}</td></tr>
+            <tr><td>name</td><td align="left">{{ name }}</td></tr>
+            <tr><td>email</td><td align="left">{{ email }}</td></tr>
+            <tr><td>register time</td><td align="left" class="timecolumn">{{ regtime }}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+    <h1>Highscore</h1>
+    <div class="personalhighscorelayout">
+        <table id="highscorercs" class="table">
+            <tr><th>rank</th><th>score</th><th>time</th></tr>
+            {% for rank, score, time in hs %}
+            <tr>
+                <td align="left">{{ rank }}</td>
+                <td align="left">{{ score }}</td>
+                <td align="left" class="timecolumn">{{ time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <h1>Login Record</h1>
+    <div class="personalloginlayout">
+        <div class="description">Latest 10</div>
+        <table id="loginrcs" class="table">
+            <!--tr><th>time</th><tr-->
+            {% for num, time in loginrecord %}
+            <tr>
+                <td align="left">{{ num }}</td>
+                <td align="left" class="timecolumn">{{ time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <h1>Play Record</h1>
+    <div class="personalplayrecordlayout">
+        <div class="description">Latest 10</div>
+        <table id="playrcs" class="table">
+            <tr><th>rank</th><th>score</th><th>time</th></tr>
+            {% for rank, score, playtime in playrecord %}
+            <tr>
+                <td align="left">{{ rank }}</td>
+                <td align="left">{{ score }}</td>
+                <td align="left" class="timecolumn">{{ playtime }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br />
+</body>

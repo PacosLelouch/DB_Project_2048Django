@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<head>
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'Game_2048/style.css' %}" />
+    <!--<meta charset="UTF-8">-->
+    <title>2048 (VER.?): check register</title>
+</head>
+<body>
+    <p>
+        Successfully registered with
+        <br />Name: {{ name }}
+        <br />Email: {{ email }}
+        <br />You can't change your password. Please remind it in your heart.
+    </p>
+    <a href="{% url 'Game_2048:index'%}"><input type="button" class="btn" value="Return" /></a>
+</body>

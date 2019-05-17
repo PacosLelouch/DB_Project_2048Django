@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\DB_Project",
+    "\\Game_2048",
+    "\\Game_2048\\static",
+    "\\Game_2048\\static\\Game_2048",
+    "\\Game_2048\\static\\img",
+    "\\Game_2048\\templates",
+    "\\Game_2048\\templates\\Game_2048"
+  ],
+  "SelectedNode": "\\Game_2048\\dbctrl.py",
+  "PreviewInSolutionExplorer": false
+}

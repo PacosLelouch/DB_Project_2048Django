@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'Game_2048/style.css' %}" />
+    <!--<meta charset="UTF-8">-->
+    <title>2048 (VER.?): message board</title>
+    <script src="/static/js/jquery-1.12.4.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+</head>
+<body>
+    <p>
+        <a href="{% url 'Game_2048:index'%}"><input type="button" class="btn" value="Return" /></a>
+    </p>
+    <h1>Score Board</h1>
+    <div class="descriptioncenter">rank</div>
+    <div class="selectlayout">
+        <select id="rankselection" list="ranklist" class="select" value="3">
+            {% for rank in ranklist %}
+            <option value="{{ rank }}">{{ rank }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <br />
+    <div class="scoreboardlayout">
+        <div class="description">Top 50</div>
+        {% for rank, hss in hs.items %}
+        <table id="ranks{{ rank }}" class="table" hidden="hidden">
+            <tr><th>no.</th><th>name</th><th>score</th><th>time</th></tr>
+            {% for number, name, score, time in hss %}
+            <tr>
+                <td align="left">{{ number }}</td>
+                <td align="left">{{ name }}</td>
+                <td align="left">{{ score }}</td>
+                <td align="left" class="timecolumn">{{ time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endfor %}
+    </div>
+    <h1>Contents</h1>
+    <div id="contentboard" class="contentlayout">
+        {% if guest %}
+        <p><strong>Guests are forbidden to submit a content.</strong></p>
+        {% else %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="name">{{ name }}:</div>
+            <!--div class="description">(write a content)</div-->
+            <textarea id="content_id" class="contentbox" name="content" placeholder="Write a content...(length from 1 to 300)"></textarea>
+            <br />
+            <div id="content_count" class="description">300 left</div>
+            <input type="submit" class="btn" value="Submit" />
+            <br /><br />
+        </form>
+        {% endif %}
+    </div>
+    <p>{{ postmsg }}</p>
+    <br />
+    <div class="messagelayout">
+        <div class="description">Latest 100</div>
+        <table id="msgs" class="table">
+            <!--tr><th>name</th><th>message</th><th class="timecolumn">time</th></tr-->
+            {% for msgname, msgtxt, msgtime in msg %}
+            <tr>
+                <td align="left">{{ msgname }}</td>
+                <td align="left" class="timecolumn">{{ msgtime }}</td>
+            </tr>
+            <tr><td align="left" colspan="2" class="contentdisplay"><pre>{{ msgtxt }}</pre></td></tr>
+            {% endfor %}
+        </table>
+    </div>
+    <p id="test"></p>
+</body>
+<script>
+    $(document).ready(function () {
+        var rank0 = $('#rankselection').val();
+        $('#ranks' + rank0.toString()).show();
+        var ranklist = [3, 4, 5, 6, 7, 8, 9, 2];
+        $('#rankselection').change(function () {
+            console.log(ranklist);//test
+            for (var rank in ranklist) {
+                $('#ranks' + ranklist[rank].toString()).hide();
+                console.log('hide #ranks' + ranklist[rank].toString());//test
+            }
+            var rank = $('#rankselection').val();
+            $('#ranks' + rank.toString()).show();
+            console.log('show #ranks' + rank.toString());//test
+        })
+        $('#content_id').bind("input propertychange", function () {
+            $('#content_count').text((300 - $('#content_id').val().length).toString() + ' left');
+        })
+    })  
+</script>
